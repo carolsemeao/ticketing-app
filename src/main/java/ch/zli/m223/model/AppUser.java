@@ -1,5 +1,7 @@
 package ch.zli.m223.model;
 
+import java.util.List;
+
 import org.springframework.security.core.userdetails.UserDetails;
 
 public interface AppUser extends UserDetails {
@@ -9,4 +11,5 @@ public interface AppUser extends UserDetails {
     String getLastName();
     String getPassword();
     Role getRole();
+    List<Booking> getBookings();
 }

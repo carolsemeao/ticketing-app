@@ -8,12 +8,15 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import ch.zli.m223.model.AppUser;
+import ch.zli.m223.model.Booking;
 import ch.zli.m223.model.Role;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity(name="AppUser")
 public class AppUserImpl implements AppUser {
@@ -37,6 +40,9 @@ public class AppUserImpl implements AppUser {
     @ManyToOne
     private RoleImpl role;
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    private List<BookingImpl> bookings;
+
     public AppUserImpl(
         String firstName, String shureName,
         String email, String encriptedPassword,
@@ -47,6 +53,7 @@ public class AppUserImpl implements AppUser {
         this.email  = email;
         setPassword(encriptedPassword);
         this.role = role;
+        this.bookings = new ArrayList<>();
     }
 
     /** For JPA use only */
@@ -123,4 +130,9 @@ public class AppUserImpl implements AppUser {
 
     @Override
     public boolean isEnabled() { return true; }
+
+    @Override
+    public List<Booking> getBookings() {
+        return new ArrayList<>(bookings);
+    }
 }

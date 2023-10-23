@@ -1,6 +1,8 @@
 package ch.zli.m223.model.impl;
 
+import ch.zli.m223.model.AppUser;
 import ch.zli.m223.model.Booking;
+import ch.zli.m223.model.Status;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,21 +19,24 @@ public class BookingImpl implements Booking {
     private String roomName;
 
     @ManyToOne
-    private AppUserImpl appUserId;
+    private AppUserImpl user;
 
-    private boolean isFullDay;
-    private String status;
+    @ManyToOne
+    private StatusImpl status;
+
+    private Boolean isFullDay;
+
     private String date;
 
     public BookingImpl(
-        String roomName, String status, String date,
-        boolean isFullDay, AppUserImpl userId
+        String roomName, StatusImpl status, String date,
+        Boolean isFullDay, AppUserImpl user
     ) {
         this.roomName = roomName;
-        this.status = status;
+        setStatus(status);
         this.date = date;
         this.isFullDay = isFullDay;
-        this.appUserId = userId;
+        this.user = user;
     }
 
     /** For JPA use only */
@@ -45,21 +50,40 @@ public class BookingImpl implements Booking {
     public String getRoomName() {
         return roomName;
     }
+    
     @Override
-    public Long getUserId() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getUserId'");
-    }
-    @Override
-    public boolean getIsFullDay() {
+    public Boolean getIsFullDay() {
         return isFullDay;
     }
     @Override
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
     @Override
     public String getBookingDate() {
         return date;
     }
+
+    @Override
+    public AppUser getUser() {
+        return user;
+    }
+
+    public void setRoomName(String roomName) {
+        this.roomName = roomName;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setIsFullDay(Boolean isFullDay) {
+        this.isFullDay = isFullDay;
+    }
+
+    public void setStatus(StatusImpl status) {
+        this.status = status;
+    }
+
+    public Boolean isFullDay()  { return false; }
 }
