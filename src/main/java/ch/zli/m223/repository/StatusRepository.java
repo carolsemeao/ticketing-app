@@ -7,5 +7,5 @@ import ch.zli.m223.model.Status;
 import ch.zli.m223.model.impl.StatusImpl;
 
 public interface StatusRepository extends JpaRepository<StatusImpl, Long>{
-    Optional<Status> findByStatusName(String statusName);
+    Optional<Status> findStatusByStatus(String name);
 }

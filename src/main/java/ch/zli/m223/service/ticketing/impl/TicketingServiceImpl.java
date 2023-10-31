@@ -7,12 +7,14 @@ import org.springframework.stereotype.Service;
 
 import ch.zli.m223.model.AppUser;
 import ch.zli.m223.model.Booking;
+import ch.zli.m223.model.Status;
 import ch.zli.m223.repository.StatusRepository;
 import ch.zli.m223.repository.TicketingRepository;
 import ch.zli.m223.service.ticketing.TicketingService;
 import ch.zli.m223.service.ticketing.exception.BookingNotFoundException;
 import ch.zli.m223.service.ticketing.exception.InvalidBookingException;
 import ch.zli.m223.service.ticketing.exception.InvalidIdException;
+import ch.zli.m223.service.ticketing.exception.StatusNotFoundException;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -47,14 +49,12 @@ public class TicketingServiceImpl implements TicketingService {
     }
 
     @Override
-    public Booking updateBooking(Long id, String status, String date, Boolean isFullDay, AppUser user) {
-        // TODO
-        //var booking = getBooking(id);
+    public Booking updateBooking(Long id, String statusName, String roomName, Boolean isFullDay) {
+        var booking = getBooking(id);
         
-        /*return ticketingRepository.update(
-            booking, getStatus(status), date, isFullDay, user != null ? booking.getUser() : user
-        );*/
-        return null;
+        return ticketingRepository.update(
+            booking, getStatus(statusName), roomName, isFullDay
+        );
     }
 
 
@@ -62,28 +62,23 @@ public class TicketingServiceImpl implements TicketingService {
     public Booking setStatus(Long id, String statusName) {
         var booking = getBooking(id);
         
-        var status = statusRepository.findByStatusName(statusName).orElseThrow(() -> {
-            throw new InvalidBookingException();
-        });
-        
         return ticketingRepository.update(
             booking, 
-            status, null, null
+            getStatus(statusName), null, null 
         );
     }
 
     @Override
-    public Booking addBooking(String roomName, String status, String date, Boolean isFullDay, AppUser user) {
-        
+    public Booking addBooking(String roomName, String date, Boolean isFullDay, AppUser user) {
         if (roomName == null || roomName.isBlank() ||
         date == null || date.isBlank()) {
             throw new InvalidBookingException();
         }
-        var res = statusRepository.findByStatusName(status).orElseThrow(() -> {
-            throw new InvalidBookingException();
-        });
 
-        return ticketingRepository.insertBooking(roomName, res, date, isFullDay, user);
+        String statusName = Status.pending;
+        Status status = getStatus(statusName);
+
+        return ticketingRepository.insertBooking(roomName, status, date, isFullDay, user);
     }
 
     @Override
@@ -95,4 +90,11 @@ public class TicketingServiceImpl implements TicketingService {
         }
     }
     
+     private Status getStatus(String statusName) {
+        if (statusName == null) {
+            throw new InvalidBookingException();
+        }
+        return statusRepository.findStatusByStatus(statusName.trim())
+            .orElseThrow(StatusNotFoundException::new);
+    }
 }

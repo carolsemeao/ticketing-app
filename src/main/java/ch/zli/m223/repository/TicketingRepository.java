@@ -24,13 +24,13 @@ public interface TicketingRepository extends JpaRepository<BookingImpl, Long> {
         }).collect(Collectors.toList());
     };
 
-    public default Booking update(
-        Booking booking, Status status, String date, Boolean isFullDay
+    public default Booking update (
+        Booking booking, Status status, String roomName, Boolean isFullDay
     ) {
         BookingImpl bookingImpl = (BookingImpl) booking;
         if (status!= null) bookingImpl.setStatus((StatusImpl)status);
-        if (date!= null) bookingImpl.setDate(date);
-        if (isFullDay != true) bookingImpl.setIsFullDay(isFullDay);
+        if (isFullDay != null) bookingImpl.setIsFullDay(isFullDay);
+        if (roomName != null) bookingImpl.setRoomName(roomName);
         return save(bookingImpl);
     }
 

@@ -42,11 +42,11 @@ public class ServerInitialisation implements ApplicationRunner {
             statusRepository.save(new StatusImpl("Accepted"));
             statusRepository.save(new StatusImpl("Declined"));
 
-            ticketingService.addBooking("Room 1", "Pending", "23.10.2023", false, userService.getUserByName("max@werner.com"));
-            ticketingService.addBooking("Room 2", "Declined", "25.10.2023", false, userService.getUserByName("max@werner.com"));
-            ticketingService.addBooking("Room 1", "Accepted", "28.10.2023", true, userService.getUserByName("max@werner.com"));
-            ticketingService.addBooking("Room 2", "Pending", "30.10.2023", true, userService.getUserByName("max@werner.com"));
-            ticketingService.addBooking("Room 2", "Pending", "31.10.2023", true, userService.getUserByName("jes@froden.sw"));
+            ticketingService.addBooking("Room 1", "23.10.2023", false, userService.getUserByName("max@werner.com"));
+            ticketingService.addBooking("Room 2", "25.10.2023", false, userService.getUserByName("max@werner.com"));
+            ticketingService.addBooking("Room 1", "28.10.2023", true, userService.getUserByName("max@werner.com"));
+            ticketingService.addBooking("Room 2", "30.10.2023", true, userService.getUserByName("max@werner.com"));
+            ticketingService.addBooking("Room 2", "31.10.2023", true, userService.getUserByName("jes@froden.sw"));
         }
     }
     

@@ -18,14 +18,13 @@ public interface TicketingService {
     /**
      * 
      * @param roomName room name
-     * @param status status (pending, accepted, rejected)
      * @param date date of booking
      * @param isFullDay whether booking is full day or not
      * @param user user
      * @return the newly created booking
      * @throws BookingAlreadyExistsException, InvalidBookingException
      */
-    Booking addBooking(String roomName, String status, String date,
+    Booking addBooking(String roomName, String date,
         Boolean isFullDay, AppUser user);
 
 
@@ -49,14 +48,12 @@ public interface TicketingService {
      * 
      * @param id the booking id
      * @param status the booking status
-     * @param date the booking date
      * @param isFullDay whether booking is a full day or not
-     * @param user the user
      * @return the changed booking
      * @throws InvalidIdException, BookingAlreadyExistsException, BookingNotFoundException
      */
     Booking updateBooking(
-        Long id, String status, String date, Boolean isFullDay, AppUser user
+        Long id, String status, String roomName, Boolean isFullDay
     );
 
 
@@ -68,7 +65,6 @@ public interface TicketingService {
      * @throws InvalidIdException, BookingNotFoundException
      */
     Booking setStatus(Long id, String status);
-
 
     List<Booking> getBookingsListForUser(String name);
 }

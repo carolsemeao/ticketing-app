@@ -14,10 +14,10 @@ public class StatusImpl implements Status {
     Long id;
 
     @Column(nullable = false)
-    String statusName;
+    String status;
     
     public StatusImpl(String status) {
-        this.statusName = status;
+        this.status = status;
     }
     
     // JPA purposes only
@@ -25,7 +25,7 @@ public class StatusImpl implements Status {
 
     @Override
     public String getStatusName() {
-        return statusName;
+        return status;
     }
 
     @Override
