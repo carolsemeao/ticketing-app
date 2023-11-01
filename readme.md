@@ -1,6 +1,11 @@
 # Ticketing Application
-Das Ziel der Applikation ist es ein Backend mit einem REST-Interface zu erstellen. Als Beispiel soll eine Benutzerverwaltung erstellt werden welche anschliessend für die Authentifizierung und Authorisierung verwendet werden kann.  
-Aufbauend auf dieser Implementierung soll anschliessend ein Sicherheitsmechanismus auf der Basis von [JSON Web Token](https://jwt.io/) implementiert werden.
+
+## Hintergrund
+In der heutigen Welt steigt die Nachfrage nach flexiblen Arbeitsplätzen schnell an. Coworking Spaces bieten solch eine Umgebung und sind bei Freelancern, Start-ups und auch bei grösseren Unternehmen immer beliebter geworden. Eine effiziente und sichere Buchungsplattform ist für diese Spaces sehr nützlich.
+
+## Ziel der Applikation
+Das Ziel der Applikation ist es, ein Backend mit einem REST-Interface zu entwickeln, welches eine stabile Benutzerverwaltung bereitstellt. Als Beispiel soll eine Benutzerverwaltung erstellt werden welche anschliessend für die Authentifizierung und Authorisierung verwendet werden kann.  
+Aufbauend auf dieser Implementierung soll anschliessend ein Sicherheitsmechanismus auf der Basis von [JSON Web Token](https://jwt.io/) implementiert werden. Dies stellt sicher, dass alle Nutzerdaten sicher gehandhabt und Übertragungen zwischen Backend und Frontend verschlüsselt und verifiziert werden.
 
 ## Projekt aufsetzen
 Das Projekt kann von [GitHub](https://github.com/carolsemeao/ticketing-app) heruntergeladen werden.
