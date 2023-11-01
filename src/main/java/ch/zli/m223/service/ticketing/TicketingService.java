@@ -2,7 +2,6 @@ package ch.zli.m223.service.ticketing;
 
 import java.util.List;
 
-import ch.zli.m223.model.AppUser;
 import ch.zli.m223.model.Booking;
 import ch.zli.m223.service.ticketing.exception.BookingAlreadyExistsException;
 import ch.zli.m223.service.ticketing.exception.BookingNotFoundException;
@@ -20,13 +19,12 @@ public interface TicketingService {
      * @param roomName room name
      * @param date date of booking
      * @param isFullDay whether booking is full day or not
-     * @param user user
+     * @param username username
      * @return the newly created booking
      * @throws BookingAlreadyExistsException, InvalidBookingException
      */
     Booking addBooking(String roomName, String date,
-        Boolean isFullDay, AppUser user);
-
+        Boolean isFullDay, String username);
 
     /**
      * 

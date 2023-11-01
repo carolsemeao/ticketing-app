@@ -15,6 +15,7 @@ import ch.zli.m223.service.ticketing.exception.BookingNotFoundException;
 import ch.zli.m223.service.ticketing.exception.InvalidBookingException;
 import ch.zli.m223.service.ticketing.exception.InvalidIdException;
 import ch.zli.m223.service.ticketing.exception.StatusNotFoundException;
+import ch.zli.m223.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -23,6 +24,7 @@ public class TicketingServiceImpl implements TicketingService {
 
     private final TicketingRepository ticketingRepository;
     private final StatusRepository statusRepository;
+    private final UserService userService;
 
 
     @Override
@@ -69,17 +71,19 @@ public class TicketingServiceImpl implements TicketingService {
     }
 
     @Override
-    public Booking addBooking(String roomName, String date, Boolean isFullDay, AppUser user) {
+    public Booking addBooking(String roomName, String date, Boolean isFullDay, String username) {
+        AppUser user = userService.getUserByName(username);
+        String statusName = Status.pending;
+        Status status = getStatus(statusName);
+
         if (roomName == null || roomName.isBlank() ||
         date == null || date.isBlank()) {
             throw new InvalidBookingException();
         }
 
-        String statusName = Status.pending;
-        Status status = getStatus(statusName);
-
-        return ticketingRepository.insertBooking(roomName, status, date, isFullDay, user);
+        return ticketingRepository.addBooking(roomName, status, date, isFullDay, user);
     }
+
 
     @Override
     public List<Booking> getBookingsListForUser(String email) {

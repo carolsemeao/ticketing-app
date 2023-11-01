@@ -2,21 +2,23 @@ package ch.zli.m223.controller.ticketing.dto;
 
 import ch.zli.m223.model.Booking;
 import ch.zli.m223.model.Status;
+import lombok.AllArgsConstructor;
 
+@AllArgsConstructor
 public class BookingDto {
     public Long id;
+    public Long userId;
     public String roomName;
     public String date;
-    public Boolean isFullDay;
     public Status status;
-    public Long userId;
+    public Boolean isFullDay;
 
     public BookingDto(Booking booking) {
+        userId = booking.getUserId();
         id = booking.getId();
         roomName = booking.getRoomName();
         date = booking.getBookingDate();
-        isFullDay = booking.getIsFullDay();
         status = booking.getStatus();
-        userId = booking.getUser().getId();
+        isFullDay = booking.getIsFullDay();
     }
 }
