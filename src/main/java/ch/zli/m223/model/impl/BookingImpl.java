@@ -27,16 +27,17 @@ public class BookingImpl implements Booking {
     private Boolean isFullDay;
 
     private String date;
+    private Long userid;
 
-    public BookingImpl(
+    public BookingImpl(AppUser user,
         String roomName, StatusImpl status, String date,
-        Boolean isFullDay, AppUserImpl user
+        Boolean isFullDay
     ) {
         this.roomName = roomName;
         setStatus(status);
         this.date = date;
         this.isFullDay = isFullDay;
-        this.user = user;
+        this.userid = user.getId();
     }
 
     /** For JPA use only */
@@ -86,4 +87,6 @@ public class BookingImpl implements Booking {
     }
 
     public Boolean isFullDay()  { return false; }
+
+    public Long getUserId() {return userid;}
 }

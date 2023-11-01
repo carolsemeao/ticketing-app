@@ -8,13 +8,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import ch.zli.m223.model.AppUser;
 import ch.zli.m223.model.Booking;
 import ch.zli.m223.model.Status;
-import ch.zli.m223.model.impl.AppUserImpl;
 import ch.zli.m223.model.impl.BookingImpl;
 import ch.zli.m223.model.impl.StatusImpl;
 
 public interface TicketingRepository extends JpaRepository<BookingImpl, Long> {
-    public default Booking insertBooking(String roomName, Status status, String date, Boolean isFullDay, AppUser user) {
-        return save(new BookingImpl(roomName, (StatusImpl)status, date, isFullDay, (AppUserImpl)user));
+    public default Booking addBooking(String roomName, Status status, String date, Boolean isFullDay, AppUser user) {
+        return save(new BookingImpl(user, roomName, (StatusImpl)status, date, isFullDay));
     }
 
     public default List<Booking> findByStatus(String status) {
