@@ -35,8 +35,7 @@ public interface TicketingRepository extends JpaRepository<BookingImpl, Long> {
 
     public default List<Booking> findByUsername(String name) {
         return findAll().stream()
-        .filter((booking) -> {
-            return booking.getUser().getUserName().equals(name);
-        }).collect(Collectors.toList());
+            .filter(booking -> booking.getUser() != null && name.equals(booking.getUser().getUserName()))
+            .collect(Collectors.toList());
     }
 }

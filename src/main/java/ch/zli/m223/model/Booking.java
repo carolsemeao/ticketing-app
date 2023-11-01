@@ -7,6 +7,4 @@ public interface Booking {
     Boolean getIsFullDay();
     Status getStatus();
     String getBookingDate();
-
-    Long getUserId();
 }

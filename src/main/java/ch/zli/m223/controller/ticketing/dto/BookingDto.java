@@ -14,7 +14,7 @@ public class BookingDto {
     public Boolean isFullDay;
 
     public BookingDto(Booking booking) {
-        userId = booking.getUserId();
+        userId = booking.getUser().getId();
         id = booking.getId();
         roomName = booking.getRoomName();
         date = booking.getBookingDate();
