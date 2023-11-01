@@ -87,7 +87,7 @@
 			"response": []
 		},
 		{
-			"name": "GET bookings",
+			"name": "all bookings",
 			"event": [
 				{
 					"listen": "test",
@@ -103,6 +103,13 @@
 							"    // This lets us use it in other requests",
 							"    pm.globals.set('token', pm.response.json().token)",
 							"})",
+							"",
+							"pm.test(\"All bookings were loaded\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});",
+							"",
+							"",
+							"",
 							""
 						],
 						"type": "text/javascript"
@@ -153,13 +160,15 @@
 			"response": []
 		},
 		{
-			"name": "Update Booking",
+			"name": "update booking",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							""
+							"pm.test(\"Booking information was successfully updated\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});"
 						],
 						"type": "text/javascript"
 					}
@@ -195,6 +204,99 @@
 					"path": [
 						"bookings",
 						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete booking",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful deletion of booking\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/bookings/1",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"bookings",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create booking",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Booking was successfully created\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"roomName\": \"Raum 10\",\n    \"date\": \"01.11.2023\",\n    \"isFullDay\": false\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/bookings",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"bookings"
 					]
 				}
 			},
