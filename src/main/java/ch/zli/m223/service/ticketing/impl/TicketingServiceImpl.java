@@ -87,11 +87,7 @@ public class TicketingServiceImpl implements TicketingService {
 
     @Override
     public List<Booking> getBookingsListForUser(String email) {
-        try {
-            return ticketingRepository.findByUsername(email);
-        } catch (Exception e) {
-            throw new BookingNotFoundException();
-        }
+        return ticketingRepository.findByUsername(email);
     }
     
      private Status getStatus(String statusName) {
